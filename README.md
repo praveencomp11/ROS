@@ -95,6 +95,21 @@ pip3 install -U argcomplete
 sudo apt install python3-argcomplete
 
 ```
+** Install Colcon**
+```
+sudo apt install python3-colcon-common-extensions
+```
+
+** For autocomplte**
+```
+echo "source /usr/share/colcon_argcomplete/hook/colcon-argcomplete.bash" >> ~/.bashrc
+```
+
+**For workspace realted setup**
+
+```
+echo "source ~/ros1_ws/install/setup.bash" >> ~/.bashrc
+```
 -----------------------------------------------------------------------------------------------------
 
 **6. Test your Installation**
