@@ -52,7 +52,7 @@ Now let’s add the repository to the source list.
 ```
 sudo sh -c 'echo "deb [arch=$(dpkg --print-architecture)] http://packages.ros.org/ros2/ubuntu $(lsb_release -cs) main" > /etc/apt/sources.list.d/ros2-latest.list'
 ```
-
+-----------------------------------------------------------------------------------------------------
 **3. Install the ROS 2 Packages**
 
 Update the apt repository cache.
@@ -65,7 +65,7 @@ Install the Desktop version of ROS 2.
 ```
 sudo apt install ros-foxy-desktop
 ```
-
+-----------------------------------------------------------------------------------------------------
 **4. Set up the Environment Variables **
 
 Add foxy to your bash file.
@@ -87,7 +87,7 @@ printenv ROS_DISTRO
   
   env |grep ROS
 ```
-
+-----------------------------------------------------------------------------------------------------
 **5. Install few other tools**
 ```
 sudo apt install -y python3-pip
@@ -95,7 +95,7 @@ pip3 install -U argcomplete
 sudo apt install python3-argcomplete
 
 ```
-
+-----------------------------------------------------------------------------------------------------
 
 **6. Test your Installation**
 
