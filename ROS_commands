@@ -1,0 +1,18 @@
+**Execution Steps**
+ROS1:
+To start new ros engine
+roscore
+To start talker
+(Syntax: rosrun    package_name     executable_name     arg_list)
+               ```
+               rosrun     roscpp_tutorials  talker
+               ```
+To start listener
+(Syntax: rosrun    package_name     executable_name     arg_list) 
+                rosrun   roscpp_tutorials   listener
+
+ROS2:
+     No need to start roscore
+     To start talker
+(Syntax: ros2   run    package_name     executable_name     arg_list)
+                         ros2   run    demo_nodes_cpp     talker
