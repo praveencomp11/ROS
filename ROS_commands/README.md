@@ -123,7 +123,7 @@ catkin_create_pkg my_robot_controller rospy turtlesim roscpp std_msgs
   
   Inside ros2_ws/src folder
  ```
-ros2 pkg create ros2_app_py –build-type ament_python –dependencies rclpy std_msgs
+ros2 pkg create ros2_app_py –-build-type ament_python/ament_cmake/cmake -–dependencies rclpy std_msgs
 ```
 **Create Ros services  red color represents addition of that name**
 -------------------------------
