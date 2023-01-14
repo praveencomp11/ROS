@@ -17,51 +17,142 @@ my_cpp_library<br />
 **CMakeLists.txt**
 -----------------------------------------------------------------------------------------------------
 
-Ubuntu 20.04 / Ubuntu in a VirtualBox on Windows 10
+Changes in CMakeLists.txt
 
 -----------------------------------------------------------------------------------------------------
+cmake_minimum_required(VERSION 3.5)
+project(my_cpp_library)
 
-**1. Set the Locale**
+if(CMAKe version)
+   |<br/>
+   |<br/>
+   |<br/>
+   |<br/>
+find_package(ament_cmake REQUIRED)
 
-To check locale use following command
+
+include_directories(include/my_cpp_library)
+set(HEADER_FILES include/my_cpp_library/library_header.h)
+add_library(my_lib src/my_cpp_library.cpp ${HEADER_FILES})
+
+add_executable(main src/main.cpp)
+target_link_libraries(main PUBLIC my_lib)
+
+#install the executable in the lib folder to be seen by setup.bash 
+install(TARGETS
+   main
+   DESTINATION lib/${PROJECT_NAME}/
+)
+
+#export the traget in our case it is a library
+ament_export_targets(my_lib HAS_LIBRARY_TARGET)
+
+#install  include/my_cpp_library to install/ include/my_cpp_library
+intsall(
+   DIRECTORY include/my_cpp_library
+   DESTINATION include
+)
+
+
+#install the target
+install(
+   TARGETS my_lib
+   EXPORT my_lib
+   LIBRARY DESTINATION lib
+   ARCHIEVE DESTINATION LIB
+   RUNTIME DESTINATION bin
+   INCLUDES DESTINATION include
+)
+
+ament_package()
+
+
+
+
+
+**1. Testing **
+
+Create a new folder tests inside my_package
+```
+cd ros2_ws/src/my_node
+mkdir test
 
 ```
-locale
+Then create main.cpp inside test folder
 ```
-Then type the following coomands
-```
-sudo apt update && sudo apt install locales
+#include "gtest/gtest.h"
+int main(int argc, char **argv)
+{
+  ::testing::InitGoogleTest(argc,argv);
+  return RUN_ALL_TESTS();
+}
 ```
 
-We may face issue like: Waiting for cache lock: Could not get lock /var/lib/dpkg/lock. It is held by process 3945 In such cases we can kill that process
+Create another file in test/saving_account_test.cpp
 
-use follwing syntax
+Write the following code inside it
 ```
-sudo kill -9 [process ID]
-sudo kill -9 3945
+#include "gtest/gtest.h"
+TEST(MyFirstTestSuite, MyFirstTest)
+{
+  EXPECT_TRUE(true);
+}
+
 ```
+  TEST is a Macro and takes 2 parameters   1. MyFirstTestSuite test suite and
+  EXPECT_TRUE   is assertion and adding always true or successful. The test is going to fail
+  and update CMakeLists.txt
+
 ```
-sudo locale-gen en_US en_US.UTF-8
-sudo update-locale LC_ALL=en_US.UTF-8 LANG=en_US.UTF-8
-export LANG=en_US.UTF-8
-locale
+if(BUILD_TESTING)
+  find_package(ament_lint_auto REQUIRED)
+  find_package(ament_cmake_gtest REQUIRED)
+  
+  set(TESTFILES
+     test/main.cpp
+     test/saving_account_test.cpp
+     )
+     
+   ament_add_gtest(${PROJECT_NAME}_test ${TESTFILES})
+   target_link_libraries(${PROJECT_NAME}_test my_lib)
+   
+   install(TARGETS
+      ${PROJECT_NAME}_test
+      DESTINATION lib/${PROJECT_NAME}/
+      )
+      
+      
+     
+     
+
+endif()
 ```
 -----------------------------------------------------------------------------------------------------
 
-**2. Add the ROS 2 Repositories**
+**2. Run Tests**
 
-Try following commands 
-
-```
-sudo apt update && sudo apt install curl gnupg2 lsb-release
-curl -s https://raw.githubusercontent.com/ros/rosdistro/master/ros.asc | sudo apt-key add -
-```
-
-Now let’s add the repository to the source list.
+First compile 
 
 ```
-sudo sh -c 'echo "deb [arch=$(dpkg --print-architecture)] http://packages.ros.org/ros2/ubuntu $(lsb_release -cs) main" > /etc/apt/sources.list.d/ros2-latest.list'
+cd ros2_ws
+colcon build
 ```
+
+Then test it for all workspace or for selected packages
+
+```
+colcon test
+or
+colcon test --packages-select my_cpp_library
+```
+
+to check whether the tests are successful or failed 
+```
+colcon test
+or
+colcon test --packages-select my_cpp_library
+```
+
 -----------------------------------------------------------------------------------------------------
 **3. Install the ROS 2 Packages**
 
