@@ -14,7 +14,7 @@ my_cpp_library<br />
   |<br />
   
 
-**Prerequisites**
+**CMakeLists.txt**
 -----------------------------------------------------------------------------------------------------
 
 Ubuntu 20.04 / Ubuntu in a VirtualBox on Windows 10
