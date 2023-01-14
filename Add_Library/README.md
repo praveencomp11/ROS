@@ -20,14 +20,15 @@ my_cpp_library<br />
 Changes in CMakeLists.txt
 
 -----------------------------------------------------------------------------------------------------
+```
 cmake_minimum_required(VERSION 3.5)
 project(my_cpp_library)
 
 if(CMAKe version)
-   |<br/>
-   |<br/>
-   |<br/>
-   |<br/>
+   |
+   |
+   |
+   |
 find_package(ament_cmake REQUIRED)
 
 
@@ -65,12 +66,12 @@ install(
 )
 
 ament_package()
-
+```
 
 
 -----------------------------------------------------------------------------------------------------
 
-**1. Testing **
+**1. Testing**
 
 Create a new folder tests inside my_package
 ```
