@@ -5,12 +5,12 @@
 my_cpp_library<br />
   |<br />
   |-include<br />
-  |    |- my_cpp_library<br />
-  |        |  <br />
-  |        |- library_header.h<br />
+  |&emsp; &emsp;   |- my_cpp_library<br />
+  |&emsp; &emsp;    &emsp;&emsp;   |  <br />
+  | &emsp; &emsp;    &emsp;&emsp;  |- library_header.h<br />
   |-src<br />
-  |    |- main.cpp<br />
-  |    |- my_cpp_library.cpp  <br />   
+  |&emsp;&emsp;    |- main.cpp<br />
+  |&emsp; &emsp;   |- my_cpp_library.cpp  <br />   
   |<br />
   
 
