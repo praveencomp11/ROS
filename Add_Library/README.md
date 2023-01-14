@@ -68,7 +68,7 @@ ament_package()
 
 
 
-
+-----------------------------------------------------------------------------------------------------
 
 **1. Testing **
 
@@ -146,86 +146,86 @@ or
 colcon test --packages-select my_cpp_library
 ```
 
-to check whether the tests are successful or failed 
+To check whether the tests are successful or failed 
 ```
-colcon test
-or
-colcon test --packages-select my_cpp_library
+colcon test --packages-select my_cpp_library --event-handler=console_direct+
+
+another check is
+colcon test-result
+```
+colcon test-result show the result of previous
+
+to check the test result of the specific package
+
+```
+colcon test-result --test-result-base build/my_cpp_library
 ```
 
 -----------------------------------------------------------------------------------------------------
-**3. Install the ROS 2 Packages**
+**3. Summarized Steps**
 
-Update the apt repository cache.
+1. Build the package
+2. Run the actual tests
+3. Finally verify the test results
+
+-----------------------------------------------------------------------------------------------------
+**4.Complete Command**
+
 
 ```
-sudo apt update
+ colcon build --packages-select my_cpp_library && colcon test --packages-select my_cpp_library && colcon test-result --test-result-base build/my_cpp_library
 ```
 
-Install the Desktop version of ROS 2.
+-----------------------------------------------------------------------------------------------------
+**5. Few test added**
+
+modify saving_account_test.cpp file 
+
 ```
-sudo apt install ros-foxy-desktop
+#include "library_header.h
+#include "gtest/gtest.h"
+
+TEST(SavingsAccount, TestDeposit)
+{
+    SavingsAccount my_account("Holiday saving account",0);
+    my_account.deposit(100);
+    EXPECT_EQ(100,my_account.get_balance());
+}
+TEST(SavingsAccount, TestDepositAndWithdraw)
+{
+    SavingsAccount my_account("Holiday saving account",0);
+    bool deposit_result=my_account.deposit(100.10);
+    EXPECT_TRUE(deposit_result);
+    ASSERT_FLOAT_EQ(100.10,my_account.get_balance());
+    my_account.withdraw(50.0);
+    ASSERT_FLOAT_EQ(50.10,my_account.get_balance());
+}
+
+TEST(SavingsAccount, TestExcessWithdraw)
+{
+    SavingsAccount my_account("Holiday saving account",555);
+    bool deposit_result=my_account.deposit(100.00);
+    
+    EXPECT_TRUE(deposit_result);
+    ASSERT_FLOAT_EQ(100.00,my_account.get_balance());
+    
+    bool withdraw_result=my_account.withdraw(500.00);
+    EXPECT_FALSE(withdraw_result);
+    ASSERT_FLOAT_EQ(100.00,my_account.get_balance());
+}
+TEST(SavingsAccount, TestGetName)
+{
+    SavingsAccount my_account("Holiday saving account",555);
+    std::string name==my_account.getname();
+    EXPECT_EQ("Holiday saving account",name);
+}
+
+
 ```
 -----------------------------------------------------------------------------------------------------
-**4. Set up the Environment Variables **
 
-Add foxy to your bash file.
+**6. END**
 
-```
-echo "source /opt/ros/foxy/setup.bash" >> ~/.bashrc
-```
-
-To check if it was added, type the following command, and scroll all the way to the bottom.:
-```
-gedit ~/.bashrc
-```
-
-To check ROS version 
-```
-printenv ROS_DISTRO 
-
-  or
-  
-  env |grep ROS
-```
------------------------------------------------------------------------------------------------------
-**5. Install few other tools**
-```
-sudo apt install -y python3-pip
-pip3 install -U argcomplete
-sudo apt install python3-argcomplete
-
-```
-** Install Colcon**
-```
-sudo apt install python3-colcon-common-extensions
-```
-
-** For autocomplte**
-```
-echo "source /usr/share/colcon_argcomplete/hook/colcon-argcomplete.bash" >> ~/.bashrc
-```
-
-**For workspace realted setup**
-
-```
-echo "source ~/ros1_ws/install/setup.bash" >> ~/.bashrc
-```
------------------------------------------------------------------------------------------------------
-
-**6. Test your Installation**
-
-First Terminal 
-
-```
-ros2 run demo_nodes_cpp talker
-```
-
-Second Terminal 
-
-```
-ros2 run demo_nodes_py listener
-```
 
 
 
